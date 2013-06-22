@@ -21,15 +21,47 @@ item << (label + Optional(value) +
 parser = OneOrMore(indentedBlock(item, indentStack, False)) + StringEnd()
 
 simplest = '''
-a a
-aa aa
-    b
-        c
-            d
-x
-    y
-    z
+a
+b
+  b1
+    b11
+  b2
+c
+d
+  d1
 '''
+[[
+[
+  ['a']
+], 
+[
+  ['b'], 
+    [
+      [
+      ['b1'], 
+      [
+        [
+          ['b11']
+        ]
+      ]
+    ], 
+    [
+      ['b2']
+    ]
+    ]
+], 
+[
+  ['c']
+], 
+[
+  ['d'], 
+    [
+      [
+      ['d1']
+      ]
+    ]
+]
+]]
 
 moderate = '''
 a
@@ -42,7 +74,24 @@ c
 
 listy = parser.parseString(simplest)
 
-[[   [ ['a', 'a'] ], [ ['aa', 'aa'], [[ ['b'], [[['c']]] ]] ], [['x'], [[['y']], [['z']]]]   ]]
+[[   
+\
+[ 
+  ['a', 'a'] 
+] , 
+\
+[ 
+  ['aa', 'aa']        , 
+[ [ ['b']             , 
+[ [   ['c'] ]] ]]
+] ,
+\
+[ ['x']               , 
+[ [ ['y'] ]           , 
+  [ ['z'] ]] 
+      ]   
+\
+]]
 
 print listy
 
