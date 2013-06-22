@@ -1,16 +1,9 @@
 
 {
-  "name": "en",
+  "name": "a",
   "children":
     [
-      {"name":"tvaan",
-      "children":
-        [
-          {"name":"barn1","size":42},
-          {"name":"barn2","size":420}
-        ]
-      },
-      {"name":"tva","size":888},
-      {"name":"zwo","size":800}
+      {"name":"a1","size":42},
+      {"name":"a2","size":420}
     ]
 }

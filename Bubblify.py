@@ -20,11 +20,12 @@ item << (label + Optional(value) +
  
 parser = OneOrMore(indentedBlock(item, indentStack, False)) + StringEnd()
 
-simplest = '''
+bricks = '''
 a
 b
   b1
     b11
+      b111
   b2
 c
 d
@@ -38,16 +39,21 @@ d
   ['b'], 
     [
       [
-      ['b1'], 
+        ['b1'], 
+          [
+            [
+              ['b11'],
+                [
+                  [
+                    ['b111']
+                  ]
+                ]
+            ]
+          ]
+      ], 
       [
-        [
-          ['b11']
-        ]
+        ['b2']
       ]
-    ], 
-    [
-      ['b2']
-    ]
     ]
 ], 
 [
@@ -57,7 +63,7 @@ d
   ['d'], 
     [
       [
-      ['d1']
+        ['d1']
       ]
     ]
 ]
@@ -71,8 +77,6 @@ b
     b11
 c
 '''
-
-listy = parser.parseString(simplest)
 
 [[   
 \
@@ -92,8 +96,41 @@ listy = parser.parseString(simplest)
       ]   
 \
 ]]
+simplest = '''
+a
+  a1
+  a2
+'''
+[[
+[ 
+  ['a'], 
+    [
+      [
+        ['a1']
+      ], 
+      [
+        ['a2']
+      ]
+    ]
+]
+]]
 
+listy = parser.parseString(simplest)
 print listy
+
+for l in listy[0]:
+  print l
+
+data = { "name":"a", "children":[{"name":"a1","size":42},{"name":"a2","size":420}] }
+print 'DATA:', repr(data)
+
+data_string = json.dumps(data)
+print 'JSON:', data_string
+
+
+
+
+
 
 
 
