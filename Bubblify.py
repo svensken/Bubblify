@@ -94,104 +94,122 @@ level a
 ]
 ]
 
-listy = parser.parseString(simplest)
-print type(listy)
-print isinstance(listy, ParseResults)
+single_top = """
+project name
+  first component
+    concerns
+      weight
+      speed
+    simliar projects
+      Elvis Parsely
+      Ring of Doom
+    foregone resources
+      Jerry's Paintballs
+      rigid.js
+    
+  second component
+    b1
 
-top_dict = {}
-lower_dict = {}
+  third component
+"""
 
-# def ssink(element):
-#   print 'ELEMENT: ', element
+# def sink(element):
+#   print '<<<dropped into>>>: ', element
+
 #   for block in element:
+#     name = block[0]
+#     name_str = ' '.join(name)
 
-#     block_is_parent = ( len(block) == 2 )
+#     #print 'bubble: ', name
 
-#     if block_is_parent:
-#       name = block[0]
+#     if len(block) == 2: # is parent
+#       print 'block is parent: ', block
+      
 #       children = block[1]
 
-#       top_dict["name"] = ' '.join(name)
+#       #top_dict["name"] = ' '.join(name)
 
-#       print 'parent: ', name
-#       print 'child block: ', children
+#       print '  ^ child block: ', children
 
+#       lower_container = []
 #       for child in children:
-#         print 'child: ', ' '.join( child[0] )
-#         sink([child])
-#         lower_dict["name"] = ' '.join( child[0] )
-#         lower_dict["size"] = 300
-#         lower_container.append(lower_dict)
-#         print lower_container
-#       top_dict["children"] = [d for d in lower_container]
-#       print 'top_dict: ',top_dict
+
+#         print 'child: ', child
+#         childname_str = ' '.join(child[0])
+#         if len(child) == 2: # is parent
+#           lower_container.append( 
+#                           { "name":childname_str, "children":sink([child]) } 
+#                           )
+#         else: # no children
+#           lower_container.append( 
+#                           { "name":childname_str, "size":30} 
+#                           )
+#         print 'lower container: ', lower_container
+#         print
+
+#       return lower_container
 
 #     else:
-#       print 'non parent: ', block
-#       #name = block[0]
-#       #top_dict["name"] = ' '.join(name) 
+#       name = block[0]
+#       print 'detected child: ', block
+#       return { "name":name_str, "size":30 }
 
-#   return top_dict
 
 def sink(element):
+  """ dictify element
+  element can be one of two forms:
+  parent: [[ ['name'], [[ ['child1'], ['child2'] ]] ]]
+          note: child can be another block element itself
+  child:  [[ ['name'] ]] """
+
   print '<<<dropped into>>>: ', element
 
-  for block in element:
-    name = block[0]
-    name_str = ' '.join(name)
+  name_str = ' '.join( element[0][0] )
+  element_is_parent = ( len(element[0]) == 2 )
 
-    #print 'bubble: ', name
+  if element_is_parent:
+    return { "name":name_str, "children": [ sink([child]) for child in element[0][1] ] }
+  else:
+    return { "name":name_str, "size":300 }
+  
+  # lower_container = []
+  # for block in element:
+  #   name = block[0]
+  #   name_str = ' '.join(name)
 
-    if len(block) == 2: # is parent
-      print 'block is parent: ', block
-      
-      children = block[1]
+  #   #print 'bubble: ', name
 
-      #top_dict["name"] = ' '.join(name)
+  #   if len(block) == 2: # is parent
+  #     print 'block is parent: ', block
+  #     lower_container.append(  
+  #                     { "name":name_str, "children":sink([child]) } 
+  #                     )
 
-      print '  ^ child block: ', children
+  #     children = block[1]
 
-      lower_container = []
-      for child in children:
+  #     print '  ^ child block: ', children
 
-        print 'child: ', child
-        childname_str = ' '.join(child[0])
-        if len(child) == 2: # is parent
-          lower_container.append( 
-                          { "name":childname_str, "children":sink([child]) } 
-                          )
-        else: # no children
-          lower_container.append( 
-                          { "name":childname_str, "size":300} 
-                          )
-        print 'lower container: ', lower_container
-        print
+  #     for child in children:
 
-      return lower_container
+  #       print 'child: ', child
+  #       print 'lower container: ', lower_container
 
-    else:
-      name = block[0]
-      print 'detected child: ', block
-      return { "name":name_str, "size":300 }
+  #     return { "name":name_str, "children":[sink([child]) for child in children] }
+
+  #   else:
+  #     print 'detected child: ', block
+  #     return { "name":name_str, "size":30 }
 
 
+listy = parser.parseString(single_top)
 
 dicty = sink(listy[0])
-top_dict = { "name":"etwas", "children":dicty }
+#top_dict = { "name":"etwas", "children":dicty }
+print dicty
 
-def dictify(element):
-  print element
-  dicty["name"] = element[0][0]
-  dicty["children"] = element[1][0]
-  print dicty
-  # for piece in element:
-  #   print piece
-  # if type(element)==list:
-  #   return element[0]
-  # elif type(element)==str:
-  #   print element
+with open( "reconstructed.json", "w" ) as outfile:
+  json.dump(dicty, outfile)
 
-#sink( listy[0][0] )
 
 # for a in listy:
 #   print '1',a
