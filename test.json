@@ -1,9 +1,0 @@
-
-{
-  "name": "a",
-  "children":
-    [
-      {"name":"a1","size":42},
-      {"name":"a2","size":420}
-    ]
-}

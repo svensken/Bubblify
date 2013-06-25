@@ -2,6 +2,8 @@
 
 import json, string
 
+###
+# http://pyparsing.wikispaces.com/share/view/13557997
 from pyparsing import (indentedBlock, Regex, Suppress, Group, Optional,
                        OneOrMore, restOfLine, Forward, Literal,
                        ParserElement, Combine, StringEnd, 
@@ -21,80 +23,22 @@ item << (label + Optional(value) +
          Optional(indentedBlock(item, indentStack, True)))
  
 parser = OneOrMore(indentedBlock(item, indentStack, False)) + StringEnd()
+###
 
-bricks = '''
+single_top = '''
 a
-b
-  b1
-    b11
-      b111
-  b2
-c
-d
-  d1
-'''
-[
-[
-  [
-    ['a']
-  ], 
-  [
-    ['b'], 
-      [
-        [
-          ['b1'], 
-            [
-              [
-                ['b11'],
-                  [
-                    [
-                      ['b111']
-                    ]
-                  ]
-              ]
-            ]
-        ], 
-        [
-          ['b2']
-        ]
-      ]
-  ], 
-  [
-    ['c']
-  ], 
-  [
-    ['d'], 
-      [
-        [
-          ['d1']
-        ]
-      ]
-  ]
-]
-]
-
-simplest = '''
-level a
-  kid a1
-  kid a2
-'''
-[
-[
-  [ 
-    ['a'], 
-      [ 
-        [
-          ['a1']
-        ], 
-        [
-          ['a2']
-        ]
-      ]
-  ]
-]
-]
-
-single_top = """
+  a1
+    a11
+      a111
+      a112
+      a113
+    a12
+    a13
+  a2
+  a3
+    a31
+  a4'''
+"""
 project name
   first component
     concerns
@@ -104,7 +48,7 @@ project name
       Elvis Parsely
       Ring of Doom
     foregone resources
-      Jerry's Paintballs
+      Jerry's Flowers
       rigid.js
     
   second component
@@ -112,47 +56,6 @@ project name
 
   third component
 """
-
-# def sink(element):
-#   print '<<<dropped into>>>: ', element
-
-#   for block in element:
-#     name = block[0]
-#     name_str = ' '.join(name)
-
-#     #print 'bubble: ', name
-
-#     if len(block) == 2: # is parent
-#       print 'block is parent: ', block
-      
-#       children = block[1]
-
-#       #top_dict["name"] = ' '.join(name)
-
-#       print '  ^ child block: ', children
-
-#       lower_container = []
-#       for child in children:
-
-#         print 'child: ', child
-#         childname_str = ' '.join(child[0])
-#         if len(child) == 2: # is parent
-#           lower_container.append( 
-#                           { "name":childname_str, "children":sink([child]) } 
-#                           )
-#         else: # no children
-#           lower_container.append( 
-#                           { "name":childname_str, "size":30} 
-#                           )
-#         print 'lower container: ', lower_container
-#         print
-
-#       return lower_container
-
-#     else:
-#       name = block[0]
-#       print 'detected child: ', block
-#       return { "name":name_str, "size":30 }
 
 
 def sink(element):
@@ -171,77 +74,15 @@ def sink(element):
     return { "name":name_str, "children": [ sink([child]) for child in element[0][1] ] }
   else:
     return { "name":name_str, "size":300 }
-  
-  # lower_container = []
-  # for block in element:
-  #   name = block[0]
-  #   name_str = ' '.join(name)
 
-  #   #print 'bubble: ', name
-
-  #   if len(block) == 2: # is parent
-  #     print 'block is parent: ', block
-  #     lower_container.append(  
-  #                     { "name":name_str, "children":sink([child]) } 
-  #                     )
-
-  #     children = block[1]
-
-  #     print '  ^ child block: ', children
-
-  #     for child in children:
-
-  #       print 'child: ', child
-  #       print 'lower container: ', lower_container
-
-  #     return { "name":name_str, "children":[sink([child]) for child in children] }
-
-  #   else:
-  #     print 'detected child: ', block
-  #     return { "name":name_str, "size":30 }
 
 
 listy = parser.parseString(single_top)
 
 dicty = sink(listy[0])
-#top_dict = { "name":"etwas", "children":dicty }
 print dicty
 
 with open( "reconstructed.json", "w" ) as outfile:
   json.dump(dicty, outfile)
 
 
-# for a in listy:
-#   print '1',a
-#   for b in a:
-#     print '2',b
-#     for c in b:
-#       print '3',c
-#       for d in c:
-#         print '4',d
-#         for e in d:
-#           print '5',e
-#           for f in e:
-#             print '6',f
-
-data = { 
-          "name":"a", 
-          "children":
-            [
-              {"name":"a1","size":42},
-              {"name":"a2","size":420}
-            ] 
-        }
-print 'DATA:', repr(data)
-
-data_string = json.dumps(data)
-print 'JSON:', data_string
-
-
-
-
-
-
-
-
-#json.dumps(listy)
