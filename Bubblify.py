@@ -29,8 +29,8 @@ single_top = '''
 a
   a1
     a11
-      a111
-      a112
+      a111?
+      a112fdsafdsafdsaf
       a113
     a12
     a13
@@ -57,6 +57,27 @@ project name
   third component
 """
 
+def sizable(name_str):
+  # use a meaningful paramater of source text to adjust size of bubble. 
+  # either something as basic as a <size> flag, or as awesome as auto-
+  # detected importance of element ()
+
+  l = len(name_str)
+  if l > 8:
+    return 80
+  else:
+    return 10*len(name_str)
+
+def get_flags(name_str):
+  flags = []
+  if name_str.endswith('?'): flags.append('question')
+  if 'awesome' in name_str.lower(): flags.append('awesome')
+
+  if flags:
+    return ' '.join(flags)
+  else:
+    return None
+
 
 def sink(element):
   """ dictify element
@@ -71,9 +92,17 @@ def sink(element):
   element_is_parent = ( len(element[0]) == 2 )
 
   if element_is_parent:
-    return { "name":name_str, "children": [ sink([child]) for child in element[0][1] ] }
+    return { 
+              "name":name_str, 
+              "children": [ sink([child]) for child in element[0][1] ], 
+              "flags":get_flags(name_str) 
+            }
   else:
-    return { "name":name_str, "size":300 }
+    return { 
+              "name":name_str, 
+              "size":sizable(name_str), 
+              "flags":get_flags(name_str) 
+            }
 
 
 
