@@ -13,17 +13,22 @@ Requirements
 Usage
 -
 
-_ ** Write indented text file ** _
+- [x] ***Write indented text file***
+
 ![Write indented text file](text.png)
 
 
-_ ** Bubblify ** _
+- [x] ***Bubblify***
+
 ` $ python Bubblify.py text-file `
 
 
-_ ** View in browser ** _
+- [x] ***View in browser***
+
 ` $ python -m SimpleHTTPServer `
+
 open url `localhost:8000`
+
 ![View in browser](bubbles.png)
 
 
