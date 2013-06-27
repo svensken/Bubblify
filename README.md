@@ -14,22 +14,29 @@ Requirements
 Usage
 -
 
-- ***Write indented text file***
-
-![Write indented text file](resources/text.png)
+![text to bubbles](resources/text_to_bubbles.png)
 
 
-- ***Bubblify***
-
-` $ python Bubblify.py text-file `
-
-
-- ***View in browser***
-
-` $ python -m SimpleHTTPServer `
-
-open url `localhost:8000`
-
-![View in browser](resources/bubbles.png)
+``` 
+// $ vim ideas                          # write indented text file
+// $ python Bubblify.py ideas
+// $ python -m SimpleHTTPServer
+```
+open localhost:8000 in browser
 
 
+*file format:*
+```
+project name
+  first thing
+    something about first thing
+    something else as well
+  other thing
+  last thing
+```
+
+
+Quirks
+-
+* can only have one top-level ("project-name" in example above)
+* if a block has only one child element, the child bubble will fill the parent bubble
