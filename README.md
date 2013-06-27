@@ -26,7 +26,7 @@ Usage
 ```
 
 
-*file format:*
+**file format:**
 ```
 project name
   first thing
