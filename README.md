@@ -17,12 +17,13 @@ Usage
 ![text to bubbles](resources/text_to_bubbles.png)
 
 
-``` 
-// $ vim ideas                          # write indented text file
-// $ python Bubblify.py ideas
-// $ python -m SimpleHTTPServer
+```bash
+### write indented text file
+ $ vim ideas 
+ $ python Bubblify.py ideas
+ $ python -m SimpleHTTPServer
+### open localhost:8000 in browser
 ```
-open localhost:8000 in browser
 
 
 *file format:*
