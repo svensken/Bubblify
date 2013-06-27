@@ -12,13 +12,18 @@ Requirements
 
 Usage
 -
-![Write indented text file](text.png "Write indented text file")
 
-Bubblify
-```
-// $ python Bubblify.py text-file
-```
+_ ** Write indented text file ** _
+![Write indented text file](text.png)
 
-![View in browser](bubbles.png "View in browser")
+
+_ ** Bubblify ** _
+` $ python Bubblify.py text-file `
+
+
+_ ** View in browser ** _
+` $ python -m SimpleHTTPServer `
+open url `localhost:8000`
+![View in browser](bubbles.png)
 
 
