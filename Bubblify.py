@@ -4,7 +4,7 @@ import json, string
 
 ###
 # http://pyparsing.wikispaces.com/share/view/13557997
-from pyparsing import (indentedBlock, Regex, Suppress, Group, Optional,
+from pyparsing_1_5_7 import (indentedBlock, Regex, Suppress, Group, Optional,
                        OneOrMore, restOfLine, Forward, Literal,
                        ParserElement, Combine, StringEnd, 
                        ParseResults)
