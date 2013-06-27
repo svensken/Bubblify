@@ -7,8 +7,8 @@ This script converts indented blocks of text for use with d3's hierarchical [cir
 Requirements
 -
 * pyparsing: v1.5.7 for python2.\* \( **provided in repo** \), v2.0 for python3
-`$ cd pyparsing-1.5.7/`
-`$ sudo python setup.py install`
+    * `$ cd pyparsing-1.5.7/`
+      `$ sudo python setup.py install`
 
 
 Usage
