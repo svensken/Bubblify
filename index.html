@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <link type="text/css" rel="stylesheet" href="resources/style.css"/>
     <style type="text/css">
 
 text {
@@ -50,8 +50,8 @@ circle.child {
       Flare code size<br>
       circle packing
     </h2>
-    <script type="text/javascript" src="d3.js"></script>
-    <script type="text/javascript" src="d3.layout.js"></script>
+    <script type="text/javascript" src="resources/d3.js"></script>
+    <script type="text/javascript" src="resources/d3.layout.js"></script>
     <script type="text/javascript">
 
 var w = 1080,
@@ -72,7 +72,7 @@ var vis = d3.select("body").insert("svg:svg", "h2")
   .append("svg:g")
     .attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
 
-d3.json("reconstructed.json", function(data) {
+d3.json("converted.json", function(data) {
   node = root = data;
 
   var nodes = pack.nodes(root);

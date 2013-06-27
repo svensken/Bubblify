@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-import json, string
+import sys, json
 
 ###
 # http://pyparsing.wikispaces.com/share/view/13557997
-from pyparsing_1_5_7 import (indentedBlock, Regex, Suppress, Group, Optional,
+from pyparsing import (indentedBlock, Regex, Suppress, Group, Optional,
                        OneOrMore, restOfLine, Forward, Literal,
                        ParserElement, Combine, StringEnd, 
                        ParseResults)
@@ -83,7 +83,7 @@ def sink(element):
   """ dictify element
   element can be one of two forms:
   parent: [[ ['name'], [[ ['child1'], ['child2'] ]] ]]
-          note: child can be another block element itself
+          note: child can be a block element itself
   child:  [[ ['name'] ]] """
 
   print '<<<dropped into>>>: ', element
@@ -105,13 +105,24 @@ def sink(element):
             }
 
 
+if len(sys.argv) == 1:
+  print
+  print "ERROR"
+  print "please provide a filename"
+  print "    $ ./Bubblify.py filename"
+  print
+  sys.exit(1)
+
+#TODO
+# actually use specified file
 
 listy = parser.parseString(single_top)
 
 dicty = sink(listy[0])
 print dicty
 
-with open( "reconstructed.json", "w" ) as outfile:
+with open( "converted.json", "w" ) as outfile:
   json.dump(dicty, outfile)
+  print "wrote converted.json"
 
 

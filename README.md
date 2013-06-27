@@ -7,7 +7,7 @@ This script converts indented blocks of text for use with d3's hierarchical [cir
 Requirements
 -
 * pyparsing: v1.5.7 for python2.\* \( **provided in repo** \), v2.0 for python3
-    * `$ cd pyparsing-1.5.7/`
+    * `$ cd resources/pyparsing-1.5.7/`
     * `$ sudo python setup.py install`
 
 
@@ -16,7 +16,7 @@ Usage
 
 - ***Write indented text file***
 
-![Write indented text file](text.png)
+![Write indented text file](resources/text.png)
 
 
 - ***Bubblify***
@@ -30,6 +30,6 @@ Usage
 
 open url `localhost:8000`
 
-![View in browser](bubbles.png)
+![View in browser](resources/bubbles.png)
 
 
