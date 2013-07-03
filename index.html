@@ -13,6 +13,11 @@ text {
 
 text.parent {
   fill: #1f77b4;
+  font-size: 18px;
+  /*fill: steelblue;*/
+  stroke: steelblue;
+  stroke-width: 1px;
+  text-shadow: white 0px 1px;
   background-color: green;
 }
 
@@ -85,7 +90,9 @@ var vis = d3.select("body").insert("svg:svg", "h2")
   .append("svg:g")
     .attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
 
-d3.json("converted.json", function(data) {
+d3.json( /*nextlineisjsonfile*/
+  "converted.json"
+  , function(data) {
   node = root = data;
 
   var nodes = pack.nodes(root);
@@ -107,7 +114,6 @@ d3.json("converted.json", function(data) {
       .attr("y", function(d) { return d.children ? d.y - d.r : d.y; })
       //.attr("dy", ".35em")
       .attr("text-anchor", "middle")
-      //.attr("text-anchor", "middle")
       .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
       .text(function(d) { return d.name; });
 

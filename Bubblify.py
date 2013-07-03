@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, json
+import os, sys, json
 
 ###
 # http://pyparsing.wikispaces.com/share/view/13557997
@@ -29,7 +29,7 @@ a
   a1
     a11
       a111?
-      a112fdsafdsafdsaf
+      a112fdsafdsafd fdsa fdsafdsafdsa fdsafdsa fdsa fdsa fsdafdsa
       a113
     a12
     a13
@@ -104,22 +104,37 @@ def sink(element):
             }
 
 
-# if len(sys.argv) == 1:
-#   print
-#   print "ERROR"
-#   print "please provide a filename"
-#   print "    $ ./Bubblify.py filename"
-#   print
-#   sys.exit(1)
 
 
-listy = parser.parseString(single_top)
+if len(sys.argv) == 1:
+  print
+  print "ERROR"
+  print "please provide a filename"
+  print "    $ ./Bubblify.py filename"
+  print
+  sys.exit(1)
+else:
+  filename = sys.argv[1]
+  basename = os.path.basename(filename)
+
+with open(filename) as f:
+  lines = '\n'.join( f.readlines() )
+  listy = parser.parseString(lines)
 
 dicty = sink(listy[0])
 print dicty
 
-with open( "converted.json", "w" ) as outfile:
+json_file = 'brows.able/'+ basename +'.json'
+with open( json_file, 'w' ) as outfile:
   json.dump(dicty, outfile)
-  print "wrote converted.json"
+  print 'wrote json file for '+filename
 
+html_file = 'brows.able/'+ basename +'.html'
+with open( '/home/svensken/Desktop/Bubblify/index.html', 'r' ) as template:
+  template_lines = template.readlines()
+  for index,line in enumerate( template_lines ):
+    if 'nextlineisjsonfile' in line:
+      template_lines[index+1] = '"'+basename+'.json" \n'
+with open( html_file, 'w' ) as outfile:
+  outfile.write( ''.join( template_lines ) )
 
