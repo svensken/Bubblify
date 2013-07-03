@@ -62,10 +62,24 @@ def sizable(name_str):
   # detected importance of element ()
 
   l = len(name_str)
-  if l > 8:
-    return 80
+  if l > 20:
+    return 200
   else:
     return 10*len(name_str)
+
+def linkate(name_str, gimme):
+  mightbelink = name_str.split()[0]
+  if mightbelink.startswith('http'):
+    if gimme=='name':
+      # strip link
+      return name_str.split()[1:]
+    elif gimme=='link':
+      return mightbelink
+  else:
+    if gimme=='name':
+      return name_str
+    elif gimme=='link':
+      return None
 
 def get_flags(name_str):
   flags = []
@@ -79,7 +93,7 @@ def get_flags(name_str):
 
 
 def sink(element):
-  """ dictify element
+  """ recursively dictify elements
   element can be one of two forms:
   parent: [[ ['name'], [[ ['child1'], ['child2'] ]] ]]
           note: child can be a block element itself
@@ -98,8 +112,10 @@ def sink(element):
             }
   else:
     return { 
-              "name":name_str, 
+              # strip web link
+              "name":linkate(name_str, gimme='name'), 
               "size":sizable(name_str), 
+              "link":linkate(name_str, gimme='link'),
               "flags":get_flags(name_str) 
             }
 

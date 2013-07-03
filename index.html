@@ -28,6 +28,11 @@ circle.parent {
   pointer-events: all;
 }
 
+circle.link {
+  fill: pink;
+  pointer-events: all;
+}
+
 circle {
   fill: #ff7f0e;
   fill-opacity: .8;
@@ -100,11 +105,21 @@ d3.json( /*nextlineisjsonfile*/
   vis.selectAll("circle")
       .data(nodes)
     .enter().append("svg:circle")
-      .attr("class", function(d) { return d.children ? "parent" : "child"; })
+      .attr("class", function(d) { 
+        if (d.children) { return "parent"; }
+        else { 
+          if (d.link) { return "link"; }
+          else { return "child"; }
+        }})
+        // return d.children ? "parent" : "child link"; })
+      //.attr("class", function(d) { return d.link ? "link"; })
       .attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; })
       .attr("r", function(d) { return d.r; })
-      .on("click", function(d) { return zoom(node == d ? root : d); });
+      .on("click", function(d) { 
+        if (d.link) { window.open(d.link); }
+        else { return zoom(node == d ? root : d); }
+        });
 
   vis.selectAll("text")
       .data(nodes)
