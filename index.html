@@ -130,7 +130,13 @@ d3.json( /*nextlineisjsonfile*/
       //.attr("dy", ".35em")
       .attr("text-anchor", "middle")
       .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
-      .text(function(d) { return d.name; });
+      .text(function(d) { 
+        var n = new String( d.name ); ///this is needed, not sure why
+        if (n.length > 20) {
+          return n.substr(0,17) + '...'
+        }
+        else { return n; }
+      });
 
   d3.select(window).on("click", function() { zoom(root); });
 });
