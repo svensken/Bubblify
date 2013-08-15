@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Awesomeness</title>
     <link type="text/css" rel="stylesheet" href="resources/style.css"/>
     <style type="text/css">
 
@@ -13,7 +14,7 @@ text {
 
 text.parent {
   /*fill: #1f77b4;*/
-  font-size: 25px;
+  /*font-size: 25px;*/
   fill: steelblue;
   stroke: steelblue;
   stroke-width: 2px;
@@ -77,8 +78,8 @@ ccircle.child:hover {
     <script type="text/javascript">
 
 var w = 800,
-    h = 550,
-    r = 500,
+    h = 720,
+    r = 650,
     x = d3.scale.linear().range([0, r]),
     y = d3.scale.linear().range([0, r]),
     node,
@@ -128,6 +129,7 @@ d3.json( /*nextlineisjsonfile*/
       .attr("y", function(d) { return d.children ? d.y - d.r : d.y; })
       //.attr("dy", ".35em")
       .attr("text-anchor", "middle")
+      .style("font-size", function(d) { return d.r > 40 ? 20 : 0;+"px" })
       .style("opacity", function(d) { return d.r > 20 ? 1 : 0; })
       .text(function(d) { 
         var n = new String( d.name ); ///this is needed, not sure why
@@ -156,6 +158,7 @@ function zoom(d, i) {
   t.selectAll("text")
       .attr("x", function(d) { return x(d.x); })
       .attr("y", function(d) { return d.children ? y(d.y - d.r) : y(d.y); })
+      .style("font-size", function(d) { return d.r > 40 ? 20 : 0;+"px" })
       .style("opacity", function(d) { return k * d.r > 20 ? 1 : 0; });
 
   node = d;

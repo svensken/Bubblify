@@ -140,13 +140,16 @@ with open(filename) as f:
 dicty = sink(listy[0])
 print dicty
 
-json_file = 'brows.able/'+ basename +'.json'
+if os.path.exists('../brows.able/'):
+  output_dir = '../brows.able/'
+
+json_file = output_dir + basename +'.json'
 with open( json_file, 'w' ) as outfile:
   json.dump(dicty, outfile)
   print 'wrote json file for '+filename
 
-html_file = 'brows.able/'+ basename +'.html'
-with open( '/home/svensken/Desktop/Bubblify/index.html', 'r' ) as template:
+html_file = output_dir + basename +'.html'
+with open( 'index.html', 'r' ) as template:
   template_lines = template.readlines()
   for index,line in enumerate( template_lines ):
     if 'nextlineisjsonfile' in line:
